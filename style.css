@@ -12,10 +12,10 @@ body {
 
 .main-container {
   width: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
+  visibility: hidden;
 }
 .card {
   width: 420px;
@@ -150,6 +150,10 @@ input:focus {
   align-items: center;
   gap: 0.5rem;
   margin: 0.5rem;
+}
+.twitter a,
+.blog a {
+  color: #000;
 }
 .loca i,
 .comp i,
