@@ -1,72 +1,68 @@
 "use strict";
-const userLoginId = document.querySelector("#userloginId");
-const searchBtn = document.querySelector(".srch");
-const userImage = document.querySelector("#userImage");
-const userName = document.querySelector(".userName");
-const userBio = document.querySelector(".userBio");
-const userRepos = document.querySelector(".userRepos");
-const userFollowers = document.querySelector(".userFollower");
-const userFollowings = document.querySelector(".userFollowing");
-const userLocation = document.querySelector("#userLocation");
-const userCompany = document.querySelector("#userCompany");
-const userxTwitter = document.querySelector("#xTwitter");
-const userBlog = document.querySelector("#userBlog");
-const mainContainer = document.querySelector(".main-container");
 
-searchBtn.addEventListener("click", function () {
-  // input validation
-  if (userLoginId.value === "") {
-    alert("Please Enter a Github username");
-    return;
-  }
+const searchBtn = document.querySelector('.srch')
+let userImg = document.querySelector('#userImage')
 
-  mainContainer.style.visibility = "visible";
-  const xhr = new XMLHttpRequest();
-  const reqUrl = `https://api.github.com/users/${userLoginId.value}`;
-  xhr.open("GET", reqUrl, true);
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState === 4) {
-      const userData = JSON.parse(xhr.responseText);
-      console.log(userData);
-      userImage.src = userData.avatar_url;
-      userName.textContent = userData.name;
-      userBio.textContent = userData.bio ? userData.bio : "Not Available";
-      userRepos.textContent = userData.public_repos;
-      userFollowers.textContent = userData.followers;
-      userFollowings.textContent = userData.following;
-      userLocation.innerHTML = `<i class="fa-solid fa-location-dot">`;
-      userLocation.innerHTML += userData.location
-        ? userData.location
-        : "Not Available";
-      userCompany.innerHTML = `<i class="fa-solid fa-building-user"></i>`;
-      userCompany.innerHTML += userData.company
-        ? userData.company
-        : "Not Available";
-      userxTwitter.innerHTML = `<i class="fa-brands fa-x-twitter"></i>`;
-      userxTwitter.innerHTML += userData.twitter_username
-        ? `<a href="https://twitter.com/${userData.twitter_username}" target="_blank">${userData.twitter_username}</a>`
-        : "Not Available";
-      userBlog.innerHTML = `<i class="fa-solid fa-link"></i>`;
-      userBlog.innerHTML += userData.blog
-        ? `<a href="${userData.blog}" target="_blank">${userData.blog}</a>`
-        : "Not Available";
+searchBtn.addEventListener('click', async function () {
+    const errmsg = document.querySelector('.message');
+    const userId = document.querySelector('#userloginId').value
+    if (userId === '') {
+        errmsg.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i>  `
+        errmsg.innerHTML += `Please enter a valid GitHub username`
+    } else {
+        errmsg.innerHTML = ''
+        const mainContainer = document.querySelector('.main-container')
+        mainContainer.style.visibility = 'visible'
+        try {
+            await fetchData(userId);
+        } catch (error) {
+            errorMessage()
+        }
     }
-
-    // When User is Not Found
-    if (xhr.readyState === 4 && xhr.status === 404) {
-      userName.textContent = "User Not Found";
-      userRepos.textContent = "No";
-      userFollowers.textContent = "No";
-      userFollowings.textContent = "No";
-      userLocation.innerHTML = `<i class="fa-solid fa-location-dot">`;
-      userLocation.innerHTML += "Not Found";
-      userCompany.innerHTML = `<i class="fa-solid fa-building-user"></i>`;
-      userCompany.innerHTML += "Not Found";
-      userxTwitter.innerHTML = `<i class="fa-brands fa-x-twitter"></i>`;
-      userxTwitter.innerHTML += "Not Found";
-      userBlog.innerHTML = `<i class="fa-solid fa-link"></i>`;
-      userBlog.innerHTML += "Not Found";
-    }
-  };
-  xhr.send();
 });
+
+async function fetchData(userId) {
+    try {
+        const response = await fetch(`https://api.github.com/users/${userId}`)
+        const data = await response.json()
+        userShowData(data)
+    } catch (error) {
+        errorMessage()
+    }
+}
+
+function userShowData(data) {
+    const userImg = document.querySelector('#userImage')
+    userImg.src = data.avatar_url
+    const userName = document.querySelector('.userName')
+    userName.innerHTML = data.name ? data.name : 'Not Available'
+    const userBio = document.querySelector('.userBio')
+    userBio.innerHTML = data.bio ? data.bio : 'Not Available'
+    const repo = document.querySelector('.userRepos')
+    repo.innerHTML = data.public_repos ? data.public_repos : '0'
+    const followers = document.querySelector('.userFollower')
+    followers.innerHTML = data.followers ? data.followers : '0'
+    const following = document.querySelector('.userFollowing')
+    following.innerHTML = data.following ? data.following : '0'
+    const location = document.querySelector('#userLocation')
+    location.innerHTML = `<i class="fa-solid fa-location-dot"></i>`
+    location.innerHTML += data.location ? data.location : 'Not Available'
+    const userCompany = document.querySelector('#userCompany')
+    userCompany.innerHTML = `<i class="fa-solid fa-building"></i>`
+    userCompany.innerHTML += data.company ? data.company : 'Not Available'
+    const userTwitter = document.querySelector('#xTwitter')
+    userTwitter.innerHTML = `<i class="fa-brands fa-twitter"></i>`
+    userTwitter.innerHTML += data.twitter_username ? `<a href="https://twitter.com/${data.twitter_username}" target="_blank">${data.twitter_username}</a>` : 'Not Available'
+    const userWebsite = document.querySelector('#userBlog')
+    userWebsite.innerHTML = `<i class="fa-solid fa-link"></i>`
+    userWebsite.innerHTML += data.blog ? `<a href="${data.blog}" target="_blank">${data.blog}</a>` : 'Not Available'
+}
+
+function errorMessage() {
+    const errmsg = document.querySelector('.message');
+    const mainContainer = document.querySelector('.main-container')
+    mainContainer.style.visibility = 'hidden'
+    errmsg.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i>  `
+    errmsg.innerHTML += `User not found`
+
+}

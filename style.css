@@ -4,6 +4,7 @@
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
 }
+
 body {
   background-color: #e5e3e3;
   font-family: "Inter", sans-serif;
@@ -17,6 +18,7 @@ body {
   align-items: center;
   visibility: hidden;
 }
+
 .card {
   width: 420px;
   height: 600px;
@@ -25,6 +27,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   overflow: hidden;
 }
+
 .card-header {
   width: 100%;
   height: 200px;
@@ -33,12 +36,14 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .card-header img {
   width: 150px;
   height: 150px;
   border-radius: 50%;
   border: 5px solid #fff;
 }
+
 .card-body {
   width: 100%;
   height: 200px;
@@ -49,16 +54,19 @@ body {
   align-items: center;
   gap: 1rem;
 }
+
 .card-body h1 {
   font-size: 30px;
   font-weight: 700;
   color: #000;
 }
+
 .card-body h2 {
   font-size: 20px;
   font-weight: 400;
   color: #000;
 }
+
 .card-footer {
   width: 100%;
   display: flex;
@@ -68,25 +76,29 @@ body {
   border-radius: 1rem;
   padding: 0.5rem;
 }
+
 .card-footer h3 {
   font-size: 20px;
   font-weight: 400;
   color: #000;
 }
+
 .card-footer h4 {
   font-size: 20px;
   font-weight: 700;
   color: #000;
   text-align: center;
 }
+
 .search-container {
   width: 100%;
-  height: 100px;
+  height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1rem;
 }
+
 .search-container input {
   width: 350px;
   height: 50px;
@@ -124,24 +136,29 @@ input:focus {
   position: relative;
   left: 7rem;
 }
+
 .search-container button:hover {
   background-color: #fff;
   color: #000;
 }
+
 .social-media {
   align-items: center;
   border-top: 1px solid #000;
   margin-top: 5rem;
 }
+
 .social-media i {
   font-size: 20px;
   color: #000;
 }
+
 .social-media p {
   font-size: 20px;
   font-weight: 400;
   color: #000;
 }
+
 .loca,
 .comp,
 .twitter,
@@ -151,10 +168,12 @@ input:focus {
   gap: 0.5rem;
   margin: 0.5rem;
 }
+
 .twitter a,
 .blog a {
   color: #000;
 }
+
 .loca i,
 .comp i,
 .twitter i,
@@ -163,40 +182,55 @@ input:focus {
   color: #000;
 }
 
+.message {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #FF0000;
+}
+
 /* for mobile */
 @media (max-width: 768px) {
   .card {
     width: 320px;
     height: 570px;
   }
+
   .card-header img {
     width: 135px;
     height: 135px;
   }
+
   .card-body h1 {
     font-size: 20px;
   }
+
   .card-body h2 {
     font-size: 15px;
   }
+
   .card-footer h3 {
     font-size: 15px;
   }
+
   .card-footer h4 {
     font-size: 15px;
   }
+
   .search-container input {
     width: 290px;
     height: 40px;
   }
+
   .search-container button {
     width: 70px;
     height: 24px;
     left: 6rem;
   }
+
   .social-media {
     margin-top: 2rem;
   }
+
   .loca i,
   .comp i,
   .twitter i,
